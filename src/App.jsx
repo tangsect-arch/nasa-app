@@ -53,7 +53,7 @@ function App() {
   function handleToggleModal() {
     setShowModal(!showModal);
   }
-  if (!data || data.error) return <p>Error loading data.</p>;
+  if (!data || data.error) return <p>Error loading data...</p>;
   return (
     <>
       {loading ? (
