@@ -46,6 +46,18 @@
   object-fit: cover;
 }
 
+.copyright {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 1;
+    white-space: nowrap;  
+  }
+
 iframe {
   overflow-clip-margin: content-box !important;
   overflow: clip !important;

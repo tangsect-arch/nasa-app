@@ -4,7 +4,7 @@ export default function Main({ data } = props) {
   return (
     <div className="imgContainer">
       {data.media_type === "image" ? (
-        <img src={data.url} alt={data.title} className="bgImage" />
+        <img src={data.hdurl} alt={data.title} className="bgImage" />
       ) : (
         <iframe
           title="space-video"
@@ -13,6 +13,9 @@ export default function Main({ data } = props) {
           allowFullScreen
           className="bgVideo"
         />
+      )}
+      {data.copyright && (
+        <div className="copyright">&copy; {data.copyright}</div>
       )}
     </div>
   );
