@@ -17,29 +17,26 @@ function App() {
       const today = new Date().toDateString();
       const localKey = `NASA-${today}`;
       const cachedData = localStorage.getItem(localKey);
-
       if (cachedData) {
         const resJson = JSON.parse(cachedData);
-        console.log("Fetched from cache");
         if (isMounted) {
           setData(resJson);
           setLoading(false);
         }
         return;
       }
-
+      let resJson = {};
       try {
         const res = await fetch(apiUrl);
-        const resJson = await res.json();
-        localStorage.setItem(localKey, JSON.stringify(resJson));
-        console.log("Fetched from API");
-        if (isMounted) {
-          setData(resJson);
-        }
+        resJson = await res.json();
+        if (!resJson.error)
+          localStorage.setItem(localKey, JSON.stringify(resJson));
       } catch (err) {
-        console.error("Failed to fetch data", err);
+        resJson = { error: err.message };
+        setData(resJson);
       } finally {
         if (isMounted) {
+          setData(resJson);
           setLoading(false);
         }
       }
@@ -55,7 +52,7 @@ function App() {
   function handleToggleModal() {
     setShowModal(!showModal);
   }
-
+  if (!data || data.error) return <p>Error loading data.</p>;
   return (
     <>
       {loading ? (
